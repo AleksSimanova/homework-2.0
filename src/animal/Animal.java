@@ -3,7 +3,7 @@ import src.data.ColorData;
 public  abstract class Animal {
     private String name;
     private int age;
-    private int weight;
+    private float weight;
     private ColorData color;
 //---------------------------------------
     public void setName(String name){
@@ -17,7 +17,7 @@ public  abstract class Animal {
         this.age=age;
     }
     
-    public void setWeight(int weight){
+    public void setWeight(float weight){
         this.weight=weight;
     }
 //-------------------------------------
@@ -33,7 +33,7 @@ public  abstract class Animal {
         return age;
     }
 
-    public int getWeight(){
+    public float getWeight(){
         return weight;
     }
 //-----------------------------------
