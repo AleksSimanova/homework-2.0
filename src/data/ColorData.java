@@ -4,7 +4,8 @@ public enum  ColorData {
 
     BLACK("Черный"),
     WHITE("Белый"),
-    RED ("Рыжий");
+    RED ("Рыжий"),
+    MULTICOLOURED("Разноцветный");
     private String name;
 
     ColorData(String name){

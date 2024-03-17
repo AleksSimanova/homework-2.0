@@ -1,10 +1,10 @@
 package src.animal;
 import src.data.ColorData;
 public  abstract class Animal {
-    private String name;
-    private int age;
-    private float weight;
-    private ColorData color;
+    protected String name;
+    protected int age;
+    protected int weight;
+    protected ColorData color;
 //---------------------------------------
     public void setName(String name){
         this.name=name;
@@ -17,7 +17,7 @@ public  abstract class Animal {
         this.age=age;
     }
     
-    public void setWeight(float weight){
+    public void setWeight(int weight){
         this.weight=weight;
     }
 //-------------------------------------
@@ -33,12 +33,12 @@ public  abstract class Animal {
         return age;
     }
 
-    public float getWeight(){
+    public int getWeight(){
         return weight;
     }
 //-----------------------------------
-    public void  say(){
-        System.out.println("Я говорю");
+    public String  say(){
+        return "Я говорю";
     }
 
     public void  go (){
@@ -52,24 +52,25 @@ public  abstract class Animal {
         System.out.println("я ем");
     }
 //----------------------------------
+@Override
     public String toString(){
-        return String.format("Привет меня зовут %s, мне $d $s, я вещу $d кг, мой цвет $s", 
-                            name,age,weight,color.getName());
+        return String.format("Привет меня зовут %s, мне %s %s, я вещу %d кг, мой цвет %s", 
+                            name,age,getPadej(),weight,color.getName());
     }
 
-    private String getPadej(){
+    protected String getPadej(){
         int remains=age % 10;
-        switch(remains){
-                case 1:
+            if(age>=11&& age<=14){
+                return "лет";
+            }
+            if(remains==1){
                 return "год";
-                
-                case 2:case 3: case 4:
-                return"года";
-                case 5: case 0:
-                return"лет";
-                default : return "лет";
-
-        }
+            }
+            if(remains<5){
+                return "года";
+            }
+            return "лет";
+        
         
     }
 }

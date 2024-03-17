@@ -8,6 +8,7 @@ import javax.xml.validation.Validator;
 import src.animal.Animal;
 import src.animal.exceptons.AnimalNotSupported;
 import src.data.AnimalData;
+import src.data.ColorData;
 import src.data.TeamsData;
 import src.factory.AnimalFactory;
 import src.utilit.EnamConvecters;
@@ -27,8 +28,6 @@ public class Main{
                 System.out.println(String.format("Комманда %s некорректна,введение корректную команду", commandStr));
                 continue;
             };
-            //else()
-        
             TeamsData teamsData=TeamsData.valueOf(commandStr);
             switch(teamsData){
                 case ADD:
@@ -45,12 +44,12 @@ public class Main{
                         System.out.println(String.format("Данного вида  %s животного нет на этой ферме,выберите другой вид из ", typeAnimalsStr));
                         }
                     Animal animal = new AnimalFactory().create(AnimalData.valueOf( typeAnimalsStr));
-//---------------------------------имя
+//---------------------------------name
                     
                     String nameSrt =null;
                     while (true) {
                         System.out.println("Введите имя животного");
-                        nameSrt = sc.next();
+                        nameSrt = sc.next().trim();
                         if (validators.isStringChars(nameSrt)) {
                             break;   
                         }
@@ -58,11 +57,11 @@ public class Main{
                         
                     }
                     animal.setName(nameSrt);
-//---------------------------------- возраст
+//---------------------------------- age
                     int ageIntStr;
                     while (true){
                         System.out.println("Введите возраст животного");
-                        String ageStr = sc.next();
+                        String ageStr = sc.next().trim();
                         if (validators.isAgeNimbers(ageStr)){
                             try{
                                 ageIntStr= Integer.parseInt(ageStr);{
@@ -81,14 +80,14 @@ public class Main{
                         }System.out.println("Введите  число");
                     }
                     animal.setAge(ageIntStr);
-//----------------------вес
-                    float weightFloatStr;
+//----------------------weight
+                    int weightStrInt;
                     while (true){
                         System.out.println("Введите вес животного");
-                        String weightStr = sc.next();
+                        String weightStr = sc.next().trim();
                         if (validators.isAgeNimbers(weightStr)){
                             try{
-                                weightFloatStr= Float.parseFloat(weightStr);{
+                                weightStrInt= Integer.parseInt(weightStr);{
                                     if(ageIntStr>=0){
                                         break;
                                     }else {
@@ -103,12 +102,30 @@ public class Main{
                             
                         }System.out.println("Введите  число");
                     }
-                    animal.setWeight(weightFloatStr);
-                }
+                    animal.setWeight(weightStrInt);
+//--------------------collor
+                    System.out.println("Введите цвет животного");
+                    String collorStr;
+                    while (true) {
+                        System.out.printf("Выбирете цвет животного из %s \n",enamConvecters.getNamesEnam(ColorData.class,"/"));
+                        collorStr=sc.next().toUpperCase().trim();
+                        if(validators.checkValuesInEnam(ColorData.class,collorStr)){
+                            break;
+                        }
+                        System.out.printf("%s не представлен на данной ферме,выберите цвет из представленных в списке \n",collorStr);
+                    }
+                    animal.setColor(ColorData.valueOf(collorStr));
 
+//----------------------------
+                    animals.add(animal);
+                }
+                break;
                 case LIST:
                 {
-                    animals.forEach((Animal animal)-> System.out.println(animal.toString()));
+                    for (Animal animal : animals) {
+                        System.out.println(animal.toString());
+                    }
+                    
                     break;
                 }
 
